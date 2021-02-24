@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "好签",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle":"white",
+    "list": [{
+      "selectedIconPath": "images/11.png",
+      "iconPath": "images/11.png",
+      "pagePath": "pages/index/index",
+      "text": "文件"
+    }, {
+      "selectedIconPath": "images/22.png",
+      "iconPath": "images/22.png",
+      "pagePath": "pages/index/index",
+      "text": "导入"
+    }, {
+      "selectedIconPath": "images/33.png",
+      "iconPath": "images/33.png",
+      "pagePath": "pages/index/index",
+      "text": "我"
+    }]
+  },
+
+
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,44 @@
+/**index.wxss**/
+page {
+  background: #b66b6b;
+  height: auto;
+  overflow: hidden;
+}
+.titles {
+  height: 36px;
+  width: 750rpx;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-around;
+}
+.title {
+  width: 180rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title-selected {
+  border-bottom: 2px solid red;
+  color: red;
+}
+.page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 90rpx;
+  color: white;
+}
+.bc_draftbox {
+  background-color: yellow;
+}
+.bc_inbox {
+  background-color: orange;
+}
+.bc_outbox {
+  background-color: green;
+}
+.bc_donebox {
+  background-color: blue;
+}
