@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/lead-in/lead-in",
+    "pages/self/self"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,26 +14,28 @@
   "tabBar": {
     "color": "#a9b7b7",
     "selectedColor": "#11cd6e",
-    "borderStyle":"white",
-    "list": [{
-      "selectedIconPath": "images/11.png",
-      "iconPath": "images/11.png",
-      "pagePath": "pages/index/index",
-      "text": "文件"
-    }, {
-      "selectedIconPath": "images/22.png",
-      "iconPath": "images/22.png",
-      "pagePath": "pages/index/index",
-      "text": "导入"
-    }, {
-      "selectedIconPath": "images/33.png",
-      "iconPath": "images/33.png",
-      "pagePath": "pages/index/index",
-      "text": "我"
-    }]
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/11.png",
+        "iconPath": "images/11.png",
+        "pagePath": "pages/index/index",
+        "text": "文件"
+      },
+      {
+        "selectedIconPath": "images/22.png",
+        "iconPath": "images/22.png",
+        "pagePath": "pages/lead-in/lead-in",
+        "text": "导入"
+      },
+      {
+        "selectedIconPath": "images/33.png",
+        "iconPath": "images/33.png",
+        "pagePath": "pages/self/self",
+        "text": "我"
+      }
+    ]
   },
-
-
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

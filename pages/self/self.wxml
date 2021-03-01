@@ -1,0 +1,9 @@
+
+<view class="pageRoot">
+  <view class="btns">
+    <button catchtap="penHandWrite1" class="btn">个人信息</button>
+    <button catchtap="penHandWrite2" class="btn">已归档文件</button>
+    <button catchtap="pngModify" class="btn">关于</button>
+    <button catchtap="pngComment" class="btn">其他</button>
+  </view>
+</view>

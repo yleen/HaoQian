@@ -14,7 +14,9 @@
   <block wx:for="{{titles}}">
     <swiper-item>
       <!--设置4个样式名-->
-      <view class='page bc_{{item}}'>{{item}}</view>
+      <view class='page bc_{{item}}'>
+        <button>{{item}}</button>
+      </view>
     </swiper-item>
   </block>
 </swiper>
