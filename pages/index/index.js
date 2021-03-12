@@ -47,6 +47,14 @@ Page({
       url: '../logs/logs'
     })
   },
+//按钮绑定
+  write(event) {
+    wx.navigateTo({
+      url: '../writing/writing',
+    })
+  },
+
+
   onLoad() {
     if (app.globalData.userInfo) {
       this.setData({

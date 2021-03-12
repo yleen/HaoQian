@@ -15,7 +15,7 @@
     <swiper-item>
       <!--设置4个样式名-->
       <view class='page bc_{{item}}'>
-        <button>{{item}}</button>
+        <button catchtap="write">添加</button>
       </view>
     </swiper-item>
   </block>

@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/lead-in/lead-in",
-    "pages/self/self"
+    "pages/self/self",
+    "pages/writing/writing"
   ],
   "window": {
     "backgroundTextStyle": "light",
