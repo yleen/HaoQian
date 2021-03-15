@@ -9,10 +9,16 @@ Page({
         isClear: false,
         penColor: 'red',
         lineWidth: 5,
+        tempImageSrc:'',
+        originImageSrc:'',
     },
     onLoad() {
+        var self = this
         this.context = wx.createCanvasContext(this.data.canvasId)
+        chooseImage(self)
     },
+
+    
     /**
      * 触摸开始
      */
@@ -41,7 +47,13 @@ Page({
             this.context.beginPath()
         }
     },
-
+    doodleStart: function (e) {
+        var self = this
+        self.lineWidth = self.lineWidth ? self.lineWidth:5
+        self.lineColor = self.lineColor ? self.lineColor : '#000000'
+        self.doodleStartX = e.touches[0].x - 750 / 2 * self.deviceRatio
+        self.doodleStartY = e.touches[0].y - self.imgViewHeight / 2
+      },
     /**
      * 手指触摸后移动
      */
@@ -152,3 +164,133 @@ Page({
         })
     }
 })
+
+
+function chooseImage(self){
+    wx.chooseImage({
+      count: 1,
+      // sizeType: ['original '], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        self.setData({
+          imageNotChoosed: false,
+          tempImageSrc: tempFilePaths[0],
+          originImageSrc: tempFilePaths[0],
+        })
+        loadImgOnImage(self)
+      },
+      fail: function (res) {
+        self.setData({
+          imageNotChoosed: true
+        })
+      }
+    })
+  }
+
+  function loadImgOnImage(self){
+    wx.getImageInfo({
+      src: self.data.tempImageSrc,
+      success: function (res) {
+        self.oldScale = 1
+        self.initRatio = res.height / self.imgViewHeight  //转换为了px 图片原始大小/显示大小
+        if (self.initRatio < res.width / (750 * self.deviceRatio)) {
+          self.initRatio = res.width / (750 * self.deviceRatio)
+        }
+        //图片显示大小
+        self.scaleWidth = (res.width / self.initRatio)
+        self.scaleHeight = (res.height / self.initRatio)
+  
+        self.initScaleWidth = self.scaleWidth
+        self.initScaleHeight = self.scaleHeight
+        self.startX = 750 * self.deviceRatio / 2 - self.scaleWidth / 2;
+        self.startY = self.imgViewHeight / 2 - self.scaleHeight / 2;
+        self.setData({
+          imgWidth: self.scaleWidth,
+          imgHeight: self.scaleHeight,
+          imgTop: self.startY,
+          imgLeft: self.startX
+        })
+        wx.hideLoading();
+      }
+    })
+  }
+  function loadImgOnCanvas(self){
+    wx.getImageInfo({
+      src: self.data.tempImageSrc,
+      success: function (res) {
+        self.initRatio = res.height / self.imgViewHeight  //转换为了px 图片原始大小/显示大小
+        if (self.initRatio < res.width / (750 * self.deviceRatio)) {
+          self.initRatio = res.width / (750 * self.deviceRatio)
+        }
+        //图片显示大小
+        self.scaleWidth = (res.width / self.initRatio)
+        self.scaleHeight = (res.height / self.initRatio)
+  
+        self.initScaleWidth = self.scaleWidth
+        self.initScaleHeight = self.scaleHeight
+        self.startX = -self.scaleWidth / 2;
+        self.startY = -self.scaleHeight / 2;
+        self.ctx = wx.createCanvasContext('myCanvas')
+        self.ctx.translate((750 * self.deviceRatio) / 2, self.imgViewHeight/ 2) //原点移至中心，保证图片居中显示
+        self.ctx.drawImage(self.data.tempImageSrc, self.startX, self.startY, self.scaleWidth, self.scaleHeight)
+        self.ctx.draw()
+      }
+    })
+  }
+
+  function saveImgUseTempCanvas(self, delay, fn){
+    setTimeout(function () {
+      wx.canvasToTempFilePath({
+        x:0,
+        y:0,
+        width: self.data.tempCanvasWidth,
+        height: self.data.tempCanvasHeight,
+        destWidth: self.data.tempCanvasWidth,
+        destHeight: self.data.tempCanvasHeight,
+        fileType: 'png',
+        quality: 1,
+        canvasId: 'tempCanvas',
+        success: function (res) {
+          wx.hideLoading();
+          console.log(res.tempFilePath)
+          self.setData({
+            tempImageSrc: res.tempFilePath
+          })
+          if(fn){
+            fn(self) 
+          }
+        }
+      })
+    }, delay)
+  }
+  function saveDoodle(self,fn) {
+      wx.canvasToTempFilePath({
+        x: (750 * self.deviceRatio) / 2 + self.startX,
+        y: self.imgViewHeight / 2 + self.startY,
+        width: self.scaleWidth,
+        height: self.scaleHeight,
+        canvasId: 'myCanvas',
+        success: function (res) {
+          if(self.cleared){
+            self.cleared=false
+            self.setData({
+              doodleImageSrc: res.tempFilePath,
+              tempCanvasWidth: self.scaleWidth,
+              tempCanvasHeight: self.scaleHeight
+            })
+            var ctx = wx.createCanvasContext('tempCanvas')
+            ctx.drawImage(self.data.tempImageSrc, 0, 0, self.scaleWidth,self.scaleHeight)
+            ctx.drawImage(self.data.doodleImageSrc, 0, 0, self.scaleWidth, self.scaleHeight)
+            ctx.draw()
+            saveImgUseTempCanvas(self, 100, fn)
+          }else{
+            self.setData({
+              tempImageSrc: res.tempFilePath,
+              originImageSrc: res.tempFilePath
+            })
+            fn(self)
+          }
+        }
+      })
+  }
