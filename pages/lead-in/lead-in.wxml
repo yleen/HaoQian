@@ -2,7 +2,7 @@
 <view class="pageRoot">
   <view class="btns">
     <button catchtap="penHandWrite1" class="btn">电脑版</button>
-    <button catchtap="penHandWrite2" class="btn">相册导入</button>
+    <button class="btn" bindtap="imageforphoto">相册导入</button>
     <button catchtap="pngModify" class="btn">拍照导入</button>
     <button catchtap="pngComment" class="btn">微信文件导入</button>
   </view>

@@ -1,41 +1,15 @@
-<!-- 笔迹（无笔势版本） -->
-<view class="writing-container">
-    <!-- 画布工具区域 -->
-    <view class="canvas_tools">
-        <view class="penThicknessSetting">
-            <view id="pen1" class="penThickness {{lineWidth==5?'selectedBorder':''}}" bindtap="penSelect" data-param="5">
-                <view class="penThickness-inner">
-                    <view class='circle'></view>
-                </view>
-            </view>
-            <view id="pen2" class="penThickness {{lineWidth==10?'selectedBorder':''}}" bindtap="penSelect" data-param="10">
-                <view class="penThickness-inner">
-                    <view class='circle'></view>
-                </view>
-            </view>
-        </view>
-        <view class="penColorSetting">
-            <view id="color1" class="penColor {{penColor=='red'?'selectedBorder':''}}">
-                <view class="penColor-inner">
-                    <view class="colorValue" bindtap="colorSelect" data-param='red'></view>
-                </view>
-            </view>
-            <view id="color2" class="penColor {{penColor=='#fea700'?'selectedBorder':''}}">
-                <view class="penColor-inner">
-                    <view class="colorValue" bindtap="colorSelect" data-param='#fea700'></view>
-                </view>
-            </view>
-        </view>
-        <view class="operationsContainer">
-            <view class="operation {{isClear?'selectedBackground':''}}" bindtap="clearCanvas">
-                <image src='./images/eraser.png'></image>
-            </view>
-            <button catchtap="resetWriting" class="resetBtn" style="width: 71rpx; height: 108rpx; display: block; box-sizing: border-box">重置</button>
-            <button catchtap="saveWriting" class="subBtn" style="position: relative; left: 31rpx; top: 0rpx; width: 71rpx; height: 108rpx; display: block; box-sizing: border-box">完成</button>
-        </view>
-    </view>
-    <view class="canvas_area">
-        <image src="{{tempImageSrc}}" style="width:{{imgWidth}}px;height:{{imgHeight}}px;top:{{imgTop}}px;left:{{imgLeft}}px" disable-scroll="true"></image> 
-        <canvas canvas-id='{{canvasId}}' class="myCanvas" disable-scroll="false" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"></canvas>
-    </view>
+<view class="wrapper">
+  <view class="handBtn">
+    <div catchtap="back" class="backBtn common_btn">返回</div>
+    <div catchtap="cleardraw" class="delBtn common_btn">清空</div>
+    <div catchtap="getimg" class="subBtn common_btn">完成</div>
+  </view>
+  <view class="handCenter">
+  <canvas class="canvas" style="height: {{cvsHeight=='100%'?cvsHeight:cvsHeight+'px'}}; position: relative; left: 5rpx; top: -8rpx" id="canvas" canvas-id="canvas" disable-scroll="true" bindtouchstart="canvasStart" bindtouchmove="canvasMove" bindtouchend="canvasEnd" touchcancel="canvasEnd" binderror="canvasIdErrorCallback"></canvas>
+    <cover-image class='overImg' src="{{src}}" wx:if="{{src!=''}}">
+    </cover-image>
+  </view>
+  <view class="handRight">
+    <view class="handTitle">签名板</view>
+  </view>
 </view>

@@ -1,0 +1,6 @@
+/* pages/edit.wxss */
+.imageView image{  
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+}

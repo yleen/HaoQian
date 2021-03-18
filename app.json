@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/lead-in/lead-in",
     "pages/self/self",
-    "pages/writing/writing"
+    "pages/writing/writing",
+    "pages/edit/edit"
   ],
   "window": {
     "backgroundTextStyle": "light",

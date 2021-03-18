@@ -62,5 +62,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  imageforphoto:function(){
+    wx.navigateTo({
+      url: '../writing/writing',
+    })
   }
+
+
 })

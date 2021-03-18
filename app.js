@@ -34,6 +34,12 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    pages:{
+      cvsAutograph:{
+        autograph:null
+      }
+    }
   }
+
 })
